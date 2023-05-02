@@ -9,9 +9,9 @@ export default function rspecExtractLet() {
   editor.selection = currentLineSelection(editor);
   const rubyVariable = findVariable(editor);
 
-  const blockStartPosition = editor.document.positionAt(findNearestBlock(editor));
+  const blockStartPosition = editor.document.lineAt(findNearestBlock(editor, editor.selection.start));
   const indentationLevel = calculateIndentationLevel(editor, blockStartPosition);
-  const insertPosition = blockStartPosition.with({ line: blockStartPosition.line + 1, character: indentationLevel });
+  const insertPosition = blockStartPosition.range.start.with({ line: blockStartPosition.lineNumber + 1, character: indentationLevel });
 
   editor.edit(editBuilder => {
     editBuilder.delete(editor.selection);
@@ -35,21 +35,26 @@ function findVariable(editor: vscode.TextEditor): RubyVariable {
   return { name: letName, content: letContent };
 }
 
-function findNearestBlock(editor: vscode.TextEditor): number {
-  const documentText = editor.document.getText();
-  const blockRegEx = /(describe|context)\s*/;
+function findNearestBlock(editor: vscode.TextEditor, position: vscode.Position): number {
+  const blockRegEx = /(describe|context)\s/;
 
-  const match = blockRegEx.exec(documentText);
-  if (!match) { return -1; }
+  for (let lineNumber = position.line; lineNumber >= 0; lineNumber--) {
+    const line = editor.document.lineAt(lineNumber);
+    const match = line.text.match(blockRegEx);
 
-  return match.index;
+    if (match) {
+      return lineNumber;
+    }
+  }
+
+  return -1;
 }
 
-function calculateIndentationLevel(editor: vscode.TextEditor, position: vscode.Position): number {
-  const line = editor.document.lineAt(position.line + 1);
+function calculateIndentationLevel(editor: vscode.TextEditor, position: vscode.TextLine): number {
+  const line = editor.document.lineAt(position.lineNumber + 1);
   const matchedSpaces = line.text.match(/^\s+/);
 
-  if(!matchedSpaces) { return 0; };
+  if (!matchedSpaces) { return 0; };
 
   return (matchedSpaces[0] || []).length;
 }
