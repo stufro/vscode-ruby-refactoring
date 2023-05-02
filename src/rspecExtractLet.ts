@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 
-type RubyVariable = { name : String, content : String };
+type RubyVariable = { name: String, content: String };
 
 export default function rspecExtractLet() {
   const editor = vscode.window.activeTextEditor;
@@ -8,18 +8,18 @@ export default function rspecExtractLet() {
 
   editor.selection = currentLineSelection(editor);
   const rubyVariable = findVariable(editor);
-  const nearestBlockIndex = findNearestBlock(editor);
 
-  const blockStartPosition = editor.document.positionAt(nearestBlockIndex);
-  const insertPosition = blockStartPosition.with({ line: blockStartPosition.line + 1 });
+  const blockStartPosition = editor.document.positionAt(findNearestBlock(editor));
+  const indentationLevel = calculateIndentationLevel(editor, blockStartPosition);
+  const insertPosition = blockStartPosition.with({ line: blockStartPosition.line + 1, character: indentationLevel });
 
   editor.edit(editBuilder => {
     editBuilder.delete(editor.selection);
-    editBuilder.insert(insertPosition, `let(:${rubyVariable.name}) { ${rubyVariable.content} }\n`);
+    editBuilder.insert(insertPosition, `let(:${rubyVariable.name}) { ${rubyVariable.content} }\n${' '.repeat(indentationLevel)}`);
   });
 }
 
-function currentLineSelection(editor : vscode.TextEditor) : vscode.Selection {
+function currentLineSelection(editor: vscode.TextEditor): vscode.Selection {
   const startPosition = new vscode.Position(editor.selection.active.line, 0);
   const endPosition = new vscode.Position(editor.selection.active.line + 1, 0);
   const lineRange = new vscode.Range(startPosition, endPosition);
@@ -27,7 +27,7 @@ function currentLineSelection(editor : vscode.TextEditor) : vscode.Selection {
   return new vscode.Selection(lineRange.start, lineRange.end);
 }
 
-function findVariable(editor : vscode.TextEditor) : RubyVariable {
+function findVariable(editor: vscode.TextEditor): RubyVariable {
   const textToExtract = editor.document.getText(editor.selection);
   const letContent = textToExtract.split("=")[1].trim();
   const letName = textToExtract.split("=")[0].trim();
@@ -35,7 +35,7 @@ function findVariable(editor : vscode.TextEditor) : RubyVariable {
   return { name: letName, content: letContent };
 }
 
-function findNearestBlock(editor : vscode.TextEditor) : number {
+function findNearestBlock(editor: vscode.TextEditor): number {
   const documentText = editor.document.getText();
   const blockRegEx = /(describe|context)\s*/;
 
@@ -43,4 +43,13 @@ function findNearestBlock(editor : vscode.TextEditor) : number {
   if (!match) { return -1; }
 
   return match.index;
+}
+
+function calculateIndentationLevel(editor: vscode.TextEditor, position: vscode.Position): number {
+  const line = editor.document.lineAt(position.line + 1);
+  const matchedSpaces = line.text.match(/^\s+/);
+
+  if(!matchedSpaces) { return 0; };
+
+  return (matchedSpaces[0] || []).length;
 }
