@@ -2,10 +2,7 @@ import * as vscode from 'vscode';
 
 type RubyVariable = { name: String, content: String };
 
-export default function rspecExtractLet() {
-  const editor = vscode.window.activeTextEditor;
-  if (!editor) { return; }
-
+export default function rspecExtractLet(editor: vscode.TextEditor) {
   editor.selection = currentLineSelection(editor);
   const rubyVariable = findVariable(editor);
 

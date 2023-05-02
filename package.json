@@ -3,6 +3,7 @@
   "displayName": "ruby-refactoring",
   "description": "A port of vim-ruby-refactoring (https://github.com/ecomba/vim-ruby-refactoring) for VSCode",
   "version": "0.0.1",
+  "license": "MIT",
   "engines": {
     "vscode": "^1.77.0"
   },
