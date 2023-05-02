@@ -1,10 +1,15 @@
 import * as vscode from 'vscode';
 
-type RubyVariable = { name: String, content: String };
+interface RubyVariable { name: String, content: String };
 
 export default function rspecExtractLet(editor: vscode.TextEditor) {
   editor.selection = currentLineSelection(editor);
   const rubyVariable = findVariable(editor);
+
+  if (typeof rubyVariable === 'string') {
+    vscode.window.showInformationMessage(rubyVariable);
+    return;
+  }
 
   const blockStartPosition = editor.document.lineAt(findNearestBlock(editor, editor.selection.start));
   const indentationLevel = calculateIndentationLevel(editor, blockStartPosition);
@@ -24,12 +29,17 @@ function currentLineSelection(editor: vscode.TextEditor): vscode.Selection {
   return new vscode.Selection(lineRange.start, lineRange.end);
 }
 
-function findVariable(editor: vscode.TextEditor): RubyVariable {
+function findVariable(editor: vscode.TextEditor): RubyVariable | string {
   const textToExtract = editor.document.getText(editor.selection);
-  const letContent = textToExtract.split("=")[1].trim();
-  const letName = textToExtract.split("=")[0].trim();
 
-  return { name: letName, content: letContent };
+  if (textToExtract.includes("=")) {
+    const letContent = textToExtract.split("=")[1].trim();
+    const letName = textToExtract.split("=")[0].trim();
+
+    return { name: letName, content: letContent };
+  } else {
+    return "No variable found at current cursor position";
+  }
 }
 
 function findNearestBlock(editor: vscode.TextEditor, position: vscode.Position): number {
