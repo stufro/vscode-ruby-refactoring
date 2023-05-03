@@ -17,6 +17,10 @@
       {
         "command": "ruby-refactoring.rspecExtractLet",
         "title": "RSpec Extract Let"
+      },
+      {
+        "command": "ruby-refactoring.convertHashKeys",
+        "title": "Convert Hash Keys"
       }
     ]
   },
