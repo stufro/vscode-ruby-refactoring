@@ -2,6 +2,10 @@
 
 All notable changes to the "ruby-refactoring" extension will be documented in this file.
 
+## [0.1.1]
+
+Fix bug when switching between mutliple editors
+
 ## [0.1.0]
 
 Add following commands:
