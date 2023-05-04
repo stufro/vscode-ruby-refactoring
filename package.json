@@ -2,7 +2,7 @@
   "name": "ruby-refactoring",
   "displayName": "ruby-refactoring",
   "description": "A port of vim-ruby-refactoring (https://github.com/ecomba/vim-ruby-refactoring) for VSCode",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "license": "MIT",
   "engines": {
     "vscode": "^1.77.0"
@@ -21,6 +21,10 @@
       {
         "command": "ruby-refactoring.convertHashKeys",
         "title": "Convert Hash Keys"
+      },
+      {
+        "command": "ruby-refactoring.convertPostConditional",
+        "title": "Convert Post Conditional"
       }
     ]
   },
