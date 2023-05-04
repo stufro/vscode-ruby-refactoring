@@ -1,7 +1,10 @@
 import * as vscode from 'vscode';
 import { currentLineSelection } from './common';
 
-export default function convertHashKeys(editor: vscode.TextEditor) {
+export default function convertHashKeys() {
+  const editor = vscode.window.activeTextEditor;
+	if (!editor) { return; }
+
   const hashSelection = editor.selection.isEmpty ? currentLineSelection(editor) : editor.selection;
   const hashText = editor.document.getText(hashSelection);
   const newText = isStringKey(hashText) ? convertToSymbolKeys(hashText) : convertToStringKeys(hashText);

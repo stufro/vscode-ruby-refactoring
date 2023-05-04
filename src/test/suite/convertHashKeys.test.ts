@@ -12,7 +12,7 @@ suite('convertHashKeys.ts', () => {
 		const document = await vscode.workspace.openTextDocument(fixture);
 		const editor = await vscode.window.showTextDocument(document);
 
-		convertHashKeys(editor);
+		convertHashKeys();
 		await sleep(50);
 
 		const expectedFixture = __dirname + '/../../../src/test/fixtures/convertHashKeys/stringKeys.rb';
@@ -25,7 +25,7 @@ suite('convertHashKeys.ts', () => {
 		const document = await vscode.workspace.openTextDocument(fixture);
 		const editor = await vscode.window.showTextDocument(document);
 
-		convertHashKeys(editor);
+		convertHashKeys();
 		await sleep(50);
 
 		const expectedFixture = __dirname + '/../../../src/test/fixtures/convertHashKeys/symbolKeys.rb';
@@ -39,7 +39,7 @@ suite('convertHashKeys.ts', () => {
 		const editor = await vscode.window.showTextDocument(document);
 
 		editor.selection = entireDocumentSelection(editor);
-		convertHashKeys(editor);
+		convertHashKeys();
 		await sleep(50);
 
 		const expectedFixture = __dirname + '/../../../src/test/fixtures/convertHashKeys/multiLineStringKeys.rb';

@@ -13,7 +13,7 @@ suite('rspecExtractLet.ts', () => {
 		const editor = await vscode.window.showTextDocument(document);
 
 		goToLine(editor, 3);
-		rspecExtractLet(editor);
+		rspecExtractLet();
 		await sleep(50);
 
 		const expectedFixture = __dirname + '/../../../src/test/fixtures/rspecExtractLet/describeAfter.rb';
@@ -27,7 +27,7 @@ suite('rspecExtractLet.ts', () => {
 		const editor = await vscode.window.showTextDocument(document);
 
 		goToLine(editor, 4);
-		rspecExtractLet(editor);
+		rspecExtractLet();
 		await sleep(60);
 
 		const expectedFixture = __dirname + '/../../../src/test/fixtures/rspecExtractLet/contextAfter.rb';
@@ -43,7 +43,7 @@ suite('rspecExtractLet.ts', () => {
 		const showInformationMessage = sinon.stub(vscode.window, "showInformationMessage");
 
 		goToLine(editor, 1);
-		rspecExtractLet(editor);
+		rspecExtractLet();
 		await sleep(60);
 
 		assert.ok(showInformationMessage.calledOnce);

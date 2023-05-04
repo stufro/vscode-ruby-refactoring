@@ -7,6 +7,8 @@ A port of [vim-ruby-refactoring](https://github.com/ecomba/vim-ruby-refactoring)
 List of commands currently available:
 
 - RSpec Extract Let
+- Convert Hash Keys (current line or selection for multi-line hashes)
+- Convert Post Conditional
 
 ## Release Notes
 

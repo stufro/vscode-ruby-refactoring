@@ -3,7 +3,10 @@ import { currentLineSelection } from './common';
 
 type Conditional = { condition: string, statement: string };
 
-export default function convertPostConditional(editor: vscode.TextEditor) {
+export default function convertPostConditional() {
+  const editor = vscode.window.activeTextEditor;
+	if (!editor) { return; }
+
   const lineSelection = currentLineSelection(editor);
   const lineText = editor.document.getText(lineSelection);
 

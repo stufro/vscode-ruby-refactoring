@@ -12,7 +12,7 @@ suite('convertPostConditional.ts', () => {
 		const editor = await vscode.window.showTextDocument(document);
 
 		goToLine(editor, 2);
-		convertPostConditional(editor);
+		convertPostConditional();
 		await sleep(50);
 
 		const expectedFixture = __dirname + '/../../../src/test/fixtures/convertPostConditional/after.rb';
