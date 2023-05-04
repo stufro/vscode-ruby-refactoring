@@ -7,8 +7,6 @@ import { goToLine, sleep } from '../testHelper';
 import rspecExtractLet from '../../rspecExtractLet';
 
 suite('rspecExtractLet.ts', () => {
-	vscode.window.showInformationMessage('Start all tests.');
-
 	test('extracts the let to the top of the describe block', async () => {
 		const fixture = vscode.Uri.file(path.join(__dirname + '/../../../src/test/fixtures/rspecExtractLet/describeBefore.rb'));
 		const document = await vscode.workspace.openTextDocument(fixture);
