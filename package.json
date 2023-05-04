@@ -2,6 +2,11 @@
   "name": "ruby-refactoring",
   "displayName": "ruby-refactoring",
   "description": "A port of vim-ruby-refactoring (https://github.com/ecomba/vim-ruby-refactoring) for VSCode",
+  "publisher": "stufro",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/stufro/vscode-ruby-refactoring"
+  },
   "version": "0.1.0",
   "license": "MIT",
   "engines": {

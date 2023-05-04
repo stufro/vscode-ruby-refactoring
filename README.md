@@ -17,5 +17,7 @@ Users appreciate release notes as you update your extension.
 Initial release of vscode-ruby-refactoring with initial features:
 
 - RSpec Extract Let
+- Convert Hash Keys (current line or selection for multi-line hashes)
+- Convert Post Conditional
 
 ---
