@@ -3,11 +3,9 @@ import * as vscode from 'vscode';
 export default function convertHashKeys(editor: vscode.TextEditor) {
   const currentLine = currentLineSelection(editor);
   const lineText = editor.document.getText(currentLine);
-  const newText = isStringKey(lineText) ? lineText.replaceAll(/"(\w+)" =>/g, '$1:') : lineText.replaceAll(/(\w+):/g, '"$1" =>');
+  const newText = isStringKey(lineText) ? convertToSymbolKeys(lineText) : convertToStringKeys(lineText);
 
-  editor.edit(editBuilder => {
-    editBuilder.replace(currentLine, newText);
-  });
+  editor.edit(editBuilder => editBuilder.replace(currentLine, newText));
 }
 
 function currentLineSelection(editor: vscode.TextEditor): vscode.Selection {
@@ -18,6 +16,14 @@ function currentLineSelection(editor: vscode.TextEditor): vscode.Selection {
   return new vscode.Selection(lineRange.start, lineRange.end);
 }
 
-function isStringKey(hash: string): boolean {
-  return hash.match(/"\s*=>/) !== null;
+function isStringKey(line: string): boolean {
+  return line.match(/"\s*=>/) !== null;
+}
+
+function convertToSymbolKeys(line: string): string {
+  return line.replaceAll(/"(\w+)" =>/g, '$1:');
+}
+
+function convertToStringKeys(line: string): string {
+  return line.replaceAll(/(\w+):/g, '"$1" =>');
 }
