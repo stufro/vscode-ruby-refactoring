@@ -2,6 +2,7 @@ import * as assert from 'assert';
 import * as vscode from 'vscode';
 import * as path from 'path';
 import * as fs from 'fs';
+import { sleep } from '../testHelper';
 import convertHashKeys from '../../convertHashKeys';
 
 suite('convertHashKeys.ts', () => {
@@ -13,6 +14,7 @@ suite('convertHashKeys.ts', () => {
 		const editor = await vscode.window.showTextDocument(document);
 
 		convertHashKeys(editor);
+		await sleep(50);
 
 		const expectedFixture = __dirname + '/../../../src/test/fixtures/convertHashKeys/symbolKeysAfter.rb';
 		const expected = fs.readFileSync(expectedFixture, "utf8");
