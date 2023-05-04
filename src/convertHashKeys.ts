@@ -1,4 +1,5 @@
 import * as vscode from 'vscode';
+import { currentLineSelection } from './common';
 
 export default function convertHashKeys(editor: vscode.TextEditor) {
   const currentLine = currentLineSelection(editor);
@@ -6,14 +7,6 @@ export default function convertHashKeys(editor: vscode.TextEditor) {
   const newText = isStringKey(lineText) ? convertToSymbolKeys(lineText) : convertToStringKeys(lineText);
 
   editor.edit(editBuilder => editBuilder.replace(currentLine, newText));
-}
-
-function currentLineSelection(editor: vscode.TextEditor): vscode.Selection {
-  const startPosition = new vscode.Position(editor.selection.active.line, 0);
-  const endPosition = new vscode.Position(editor.selection.active.line + 1, 0);
-  const lineRange = new vscode.Range(startPosition, endPosition);
-
-  return new vscode.Selection(lineRange.start, lineRange.end);
 }
 
 function isStringKey(line: string): boolean {
