@@ -10,9 +10,23 @@ List of commands currently available:
 - Convert Hash Keys (current line or selection for multi-line hashes)
 - Convert Post Conditional
 
-## Release Notes
+Demo of current features:
 
-Users appreciate release notes as you update your extension.
+![Demo of features](demo.gif)
+
+### Roadmap
+
+Features to be ported:
+
+- [ ] Add Parameter
+- [ ] Inline Temp
+- [ ] Extract Constant          (visual selection)
+- [ ] Extract Local Variable    (visual selection)
+- [ ] Rename Local Variable     (visual selection/variable under the cursor)
+- [ ] Rename Instance Variable  (visual selection)
+- [ ] Extract Method
+
+## Release Notes
 
 ### 0.1.0
 
