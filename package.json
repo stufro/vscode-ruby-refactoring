@@ -24,6 +24,10 @@
         "title": "RSpec Extract Let"
       },
       {
+        "command": "ruby-refactoring.extractVariable",
+        "title": "Extract Local Variable"
+      },
+      {
         "command": "ruby-refactoring.convertHashKeys",
         "title": "Convert Hash Keys"
       },

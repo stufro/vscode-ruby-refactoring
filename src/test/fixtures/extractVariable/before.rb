@@ -1,0 +1,1 @@
+FooBar.new(thing + 5, :qaz)
