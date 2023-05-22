@@ -9,7 +9,9 @@ export default async function extractVariable() {
     prompt: "Enter New Variable Name",
   });
 
-  if (variableName === undefined) { return; } // TODO: show error
+  if (variableName === undefined || variableName.length < 1) {
+    return vscode.window.showErrorMessage("ruby-refactoring: No variable name entered");
+  }
 
   const variableValue = editor.document.getText(editor.selection);
 

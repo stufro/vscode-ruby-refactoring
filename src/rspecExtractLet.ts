@@ -22,7 +22,7 @@ export default function rspecExtractLet() {
     if (error instanceof Error) {
       vscode.window.showInformationMessage(error.message);
     } else {
-      vscode.window.showErrorMessage("Unknown error occurred");
+      vscode.window.showErrorMessage("ruby-refactoring: Unknown error occurred");
     }
   }
 }
@@ -30,7 +30,7 @@ export default function rspecExtractLet() {
 function findVariable(editor: vscode.TextEditor): RubyVariable {
   const textToExtract = editor.document.getText(editor.selection);
 
-  if (!textToExtract.includes("=")) { throw new Error("No variable found at current cursor position"); }
+  if (!textToExtract.includes("=")) { throw new Error("ruby-refactoring: No variable found at current cursor position"); }
 
   const letContent = textToExtract.split("=")[1].trim();
   const letName = textToExtract.split("=")[0].trim();

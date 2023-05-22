@@ -7,7 +7,10 @@ import { sleep } from '../testHelper';
 import extractVariable from '../../extractVariable';
 
 suite('extractVariable.ts', () => {
-	test.only('extracts the let to the top of the describe block', async () => {
+	const showInputBox = sinon.stub(vscode.window, 'showInputBox');
+	const showErrorMessage = sinon.stub(vscode.window, "showErrorMessage");
+
+	test('extracts the let to the top of the describe block', async () => {
 		const fixture = vscode.Uri.file(path.join(__dirname + '/../../../src/test/fixtures/extractVariable/before.rb'));
 		const document = await vscode.workspace.openTextDocument(fixture);
 		const editor = await vscode.window.showTextDocument(document);
@@ -15,7 +18,6 @@ suite('extractVariable.ts', () => {
 		const selection = new vscode.Selection(new vscode.Position(0, 11), new vscode.Position(0, 20));
 		editor.selection = selection;
 
-		const showInputBox = sinon.stub(vscode.window, 'showInputBox');
 		showInputBox.resolves('new_var');
 		extractVariable();
 		await sleep(50);
@@ -23,5 +25,19 @@ suite('extractVariable.ts', () => {
 		const expectedFixture = __dirname + '/../../../src/test/fixtures/extractVariable/after.rb';
 		const expected = fs.readFileSync(expectedFixture, "utf8");
 		assert.equal(editor.document.getText(), expected);
+	});
+
+	test('shows an error message when the user enters no value', async () => {
+		const fixture = vscode.Uri.file(path.join(__dirname + '/../../../src/test/fixtures/extractVariable/before.rb'));
+		const document = await vscode.workspace.openTextDocument(fixture);
+		const editor = await vscode.window.showTextDocument(document);
+
+		const selection = new vscode.Selection(new vscode.Position(0, 11), new vscode.Position(0, 20));
+		editor.selection = selection;
+		showInputBox.resolves(undefined);
+		extractVariable();
+		await sleep(50);
+
+		assert.ok(showErrorMessage.calledOnce);
 	});
 });

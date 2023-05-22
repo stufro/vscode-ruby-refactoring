@@ -21,19 +21,19 @@
     "commands": [
       {
         "command": "ruby-refactoring.rspecExtractLet",
-        "title": "RSpec Extract Let"
+        "title": "ruby-refactoring: RSpec Extract Let"
       },
       {
         "command": "ruby-refactoring.extractVariable",
-        "title": "Extract Local Variable"
+        "title": "ruby-refactoring: Extract Local Variable"
       },
       {
         "command": "ruby-refactoring.convertHashKeys",
-        "title": "Convert Hash Keys"
+        "title": "ruby-refactoring: Convert Hash Keys"
       },
       {
         "command": "ruby-refactoring.convertPostConditional",
-        "title": "Convert Post Conditional"
+        "title": "ruby-refactoring: Convert Post Conditional"
       }
     ]
   },
