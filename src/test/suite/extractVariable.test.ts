@@ -38,6 +38,19 @@ suite('extractVariable.ts', () => {
 		extractVariable();
 		await sleep(50);
 
-		assert.ok(showErrorMessage.calledOnce);
+		assert.ok(showErrorMessage.calledWith("ruby-refactoring: No variable name entered"));
+
+		return vscode.commands.executeCommand('workbench.action.closeActiveEditor');
+	});
+
+	test('shows an error message when the user makes no visual selection', async () => {
+		const fixture = vscode.Uri.file(path.join(__dirname + '/../../../src/test/fixtures/extractVariable/before.rb'));
+		const document = await vscode.workspace.openTextDocument(fixture);
+		await vscode.window.showTextDocument(document);
+
+		extractVariable();
+		await sleep(50);
+
+		assert.ok(showErrorMessage.calledWith("ruby-refactoring: Visual selection required"));
 	});
 });

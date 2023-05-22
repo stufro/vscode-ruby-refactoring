@@ -4,6 +4,10 @@ export default async function extractVariable() {
   const editor = vscode.window.activeTextEditor;
 	if (!editor) { return; }
 
+  if (editor.selection.isEmpty) {
+    return vscode.window.showErrorMessage("ruby-refactoring: Visual selection required");
+  }
+
   const variableName = await vscode.window.showInputBox({
     placeHolder: "Variable Name",
     prompt: "Enter New Variable Name",

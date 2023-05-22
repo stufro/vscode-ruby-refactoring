@@ -7,10 +7,11 @@ A port of [vim-ruby-refactoring](https://github.com/ecomba/vim-ruby-refactoring)
 List of commands currently available:
 
 - RSpec Extract Let
-- Convert Hash Keys (current line or selection for multi-line hashes)
+- Extract Local Variable (visual selection)
+- Convert Hash Keys (current line or visual selection)
 - Convert Post Conditional
 
-Demo of current features:
+Demo of some features:
 
 ![Demo of features](demo.gif)
 
@@ -21,12 +22,17 @@ Features to be ported:
 - [ ] Add Parameter
 - [ ] Inline Temp
 - [ ] Extract Constant          (visual selection)
-- [ ] Extract Local Variable    (visual selection)
 - [ ] Rename Local Variable     (visual selection/variable under the cursor)
 - [ ] Rename Instance Variable  (visual selection)
 - [ ] Extract Method
 
 ## Release Notes
+
+### 0.2.0
+
+Add Extract Local Variable command
+
+---
 
 ### 0.1.0
 
